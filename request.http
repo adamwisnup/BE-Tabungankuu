@@ -3,16 +3,29 @@ POST  http://localhost:3000/api/v1/deposit
 Content-Type: application/json
   
 {
-  "amount": 15000
+  "amount": 9000000
 }
 
 ### deposit
-POST  http://localhost:3000/api/v1/withdraw
+POST  https://tabungankuu.up.railway.app/api/v1/withdraw
 Content-Type: application/json
   
 {
   "amount": 12000
 }
 
-# da832cde-1a8c-4586-987a-b44c0618d404
-# df61207b-c55b-4400-9ba5-565887778a79
+### all history
+GET  http://localhost:3000/api/v1/history
+Content-Type: application/json
+
+### history deposit
+GET  http://localhost:3000/api/v1/history/deposit
+Content-Type: application/json
+
+### history withdraw
+GET  http://localhost:3000/api/v1/history/withdrawal
+Content-Type: application/json
+
+### withdraw all
+POST http://localhost:3000/api/v1/withdraw-all
+Content-Type: application/json

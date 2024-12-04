@@ -9,5 +9,9 @@ router.get("/", function (req, res, next) {
 
 router.post("/deposit", TabunganController.deposit);
 router.post("/withdraw", TabunganController.withdraw);
+router.post("/withdraw-all", TabunganController.withdrawAll);
+
+router.get("/history", TabunganController.getAllHistory);
+router.get("/history/:type", TabunganController.getHistoryByType);
 
 module.exports = router;

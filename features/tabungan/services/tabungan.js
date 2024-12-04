@@ -6,7 +6,7 @@ class TabunganService {
       throw new Error("Jumlah deposit harus lebih besar dari 0");
     }
 
-    const currentSaldo = await TabunganRepository.getTotalSaldo();
+    const currentSaldo = await TabunganRepository.getTotalUang();
     const newSaldo = currentSaldo + amount;
 
     return TabunganRepository.createTransaction({
@@ -21,7 +21,7 @@ class TabunganService {
       throw new Error("Jumlah penarikan harus lebih besar dari 0");
     }
 
-    const currentSaldo = await TabunganRepository.getTotalSaldo();
+    const currentSaldo = await TabunganRepository.getTotalUang();
     if (currentSaldo < amount) {
       throw new Error("Saldo tidak mencukupi untuk penarikan");
     }
@@ -33,6 +33,29 @@ class TabunganService {
       type: "withdrawal",
       saldo: newSaldo,
     });
+  }
+
+  async getAllHistory() {
+    return TabunganRepository.getAllHistory();
+  }
+
+  async getHistoryByType(type) {
+    if (type !== "deposit" && type !== "withdrawal") {
+      throw new Error("Tipe transaksi tidak valid");
+    }
+    return TabunganRepository.getHistoryByType(type);
+  }
+
+  async withdrawAll() {
+    const totalSaldo = await TabunganRepository.getTotalSaldo();
+
+    if (totalSaldo === 0) {
+      throw new Error("Saldo sudah kosong, tidak dapat melakukan withdrawal.");
+    }
+
+    const withdrawalTransaction = await TabunganRepository.deleteAllRecords();
+
+    return totalSaldo;
   }
 }
 
